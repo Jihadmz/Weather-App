@@ -77,8 +77,8 @@ export default defineComponent({
     };
   },
   methods: {
-    fetchingapi() {
-      fetch(
+    async fetchingapi() {
+      const promise = await fetch(
         `${this.base_url}weather?q=${this.query}&units=metric&APPID=${this.api_key}`
       )
         .then((result) => {
@@ -91,6 +91,7 @@ export default defineComponent({
           this.weather = result;
         });
       this.query = "";
+      return promise;
     },
 
     getdate() {
