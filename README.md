@@ -1,19 +1,9 @@
-# weather
+# Weather
 
-## Project setup
-```
-npm install
-```
+This is a weather web app that let you know the weather in the cities you want to look at.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Just type the name of the city and discover.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+![pic1](https://user-images.githubusercontent.com/88968854/138909371-60c1ca7f-ff13-4c96-9e45-02d00cda083c.png)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![pic1](https://user-images.githubusercontent.com/88968854/138909630-e3a9140b-693b-4e96-9b47-aabefc731a7a.png)
