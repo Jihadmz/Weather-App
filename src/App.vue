@@ -11,6 +11,8 @@
           : typeof weather.main != 'undefined' &&
             weather.weather[0].main.toString().toLowerCase() == 'rain'
           ? 'rainyimg'
+          : devcount === 1
+          ? 'graybgc'
           : ''
       "
     >
@@ -37,18 +39,26 @@
 
         <div class="rainorsunny">{{ weather.weather[0].main }}</div>
       </div>
+      <div v-else-if="hintcount == 0">
+        Type the name of the city and then hit Enter
+      </div>
 
-      <div v-else>
-        Type the name of the city and then hit
-        <div class="hint">
-          <span id="firstdelimeter">\</span><span id="seconddelimeter">/</span>
-        </div>
+      <button v-if="devcount == 1" @click="onbtnclick()">Not now</button>
+      <div class="section">
+        <li>
+          <a
+            href="mailto:jihadmahfouz8@gmail.com"
+            v-if="devcount == 1"
+            @click="hide()"
+            >Developer</a
+          >
+        </li>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, onMounted } from "vue";
 import "./styles/style.scss";
 
@@ -74,6 +84,9 @@ export default defineComponent({
       base_url: "https://api.openweathermap.org/data/2.5/",
       query: "",
       weather: {},
+      counter: 0,
+      devcount: 0,
+      hintcount: 0,
     };
   },
   methods: {
@@ -83,19 +96,39 @@ export default defineComponent({
       )
         .then((result) => {
           if (result.status == 404) {
-            alert("You entered wrong city name!");
+            alert(`${this.query} is not found, try a different city`);
           }
           return result.json();
         })
         .then((result) => {
           this.weather = result;
         });
-      this.query = "";
+      setTimeout(this.clearingquery, 1000);
+      setTimeout(this.areyouenjoying, 20000);
+      this.hintcount++;
     },
 
     getdate() {
       let date = new Date();
       return date.toDateString();
+    },
+    clearingquery() {
+      this.query = "";
+    },
+    areyouenjoying() {
+      if (this.counter == 0) {
+        alert(
+          `Are you enjoying our app, please take a minute and send your feedback to the developer`
+        );
+        this.devcount = 1;
+        this.counter++;
+      }
+    },
+    hide() {
+      this.devcount = 0;
+    },
+    onbtnclick() {
+      this.devcount = 0;
     },
   },
   computed: {
