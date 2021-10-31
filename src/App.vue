@@ -43,15 +43,15 @@
         Type the name of the city and then hit Enter
       </div>
 
-      <button v-if="devcount == 1" @click="onbtnclick()">Not now</button>
       <div class="section">
         <li>
           <a
             href="mailto:jihadmahfouz8@gmail.com"
             v-if="devcount == 1"
             @click="hide()"
-            >Developer</a
+            >Send Feedback</a
           >
+          <button v-if="devcount == 1" @click="onbtnclick()">Not now</button>
         </li>
       </div>
     </div>
@@ -80,7 +80,7 @@ export default defineComponent({
   },
   data() {
     return {
-      api_key: "56eecbb8c1736f3ccb3b5ab3d8be00d3",
+      api_key: process.env.VUE_APP_API_KEY,
       base_url: "https://api.openweathermap.org/data/2.5/",
       query: "",
       weather: {},
@@ -88,6 +88,16 @@ export default defineComponent({
       devcount: 0,
       hintcount: 0,
     };
+  },
+  mounted() {
+    if (localStorage.counter) {
+      this.counter = localStorage.counter;
+    }
+  },
+  watch: {
+    counter(newcounter) {
+      localStorage.counter = newcounter;
+    },
   },
   methods: {
     fetchingapi() {
