@@ -1,7 +1,5 @@
 <template>
-  <div v-if="sizing == true"><h1>This device is not supported</h1></div>
-
-  <div v-else>
+  <div>
     <div
       id="weather"
       :class="
@@ -63,21 +61,7 @@ import { defineComponent, onMounted } from "vue";
 import "./styles/style.scss";
 
 export default defineComponent({
-  setup() {
-    onMounted(() => {
-      let width =
-        window.innerWidth ||
-        document.documentElement.clientWidth ||
-        document.body.clientWidth;
-      let weather = document.getElementById("weather");
-      if (width > 450) {
-        alert(
-          "Your device is not supported by my website, browse it on your phone"
-        );
-        weather?.remove();
-      }
-    });
-  },
+  setup() {},
   data() {
     return {
       api_key: process.env.VUE_APP_API_KEY,
@@ -141,12 +125,6 @@ export default defineComponent({
       this.devcount = 0;
     },
   },
-  computed: {
-    sizing() {
-      if (window.innerWidth > 450) {
-        return true;
-      } else return false;
-    },
-  },
+  computed: {},
 });
 </script>
